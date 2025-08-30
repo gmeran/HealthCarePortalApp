@@ -14,11 +14,11 @@ namespace HealthCarePortalApp.ApiService.Controllers
         public async Task<ActionResult<BaseResponseModel>> GetPatients()
         {
             var patients = await patientService.GetPatients();
-            return Ok(new BaseResponseModel { Success = true, Data = patients});
+            return Ok(new BaseResponseModel { Success = true, Data = patients });
         }
-        
+
         [HttpPost]
-        public async Task<ActionResult<PatientModel>>CreatePatient(PatientModel patientModel)
+        public async Task<ActionResult<PatientModel>> CreatePatient(PatientModel patientModel)
         {
             await patientService.CreatePatient(patientModel);
             return Ok(new BaseResponseModel { Success = true });
@@ -30,12 +30,12 @@ namespace HealthCarePortalApp.ApiService.Controllers
             var patientModel = await patientService.GetPatient(id);
             if (patientModel == null)
             {
-                return Ok(new BaseResponseModel { Success=false, ErrorMessage = "Not Found" });
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Not Found" });
             }
-            return Ok(new BaseResponseModel {Success = true, Data =patientModel});
+            return Ok(new BaseResponseModel { Success = true, Data = patientModel });
         }
 
-        [HttpPut ("{id}")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePatient(int id, PatientModel patientModel)
         {
             if (id != patientModel.ID || !await patientService.PatientModelExists(id))
@@ -43,7 +43,18 @@ namespace HealthCarePortalApp.ApiService.Controllers
                 return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Bad Request" });
             }
             await patientService.UpdatePatient(patientModel);
-            return Ok(new BaseResponseModel {Success=true});
+            return Ok(new BaseResponseModel { Success = true });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePatient(int id)
+        {
+            if (!await patientService.PatientModelExists(id))
+            {
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Not Found" });
+            }
+            await patientService.DeletePatient(id);
+            return Ok(new BaseResponseModel { Success = true });
         }
     }
 }

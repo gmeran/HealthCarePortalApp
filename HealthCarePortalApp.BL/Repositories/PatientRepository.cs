@@ -16,6 +16,7 @@ namespace HealthCarePortalApp.BL.Repositories
         Task<PatientModel> GetPatient(int id);
         Task<bool> PatientModelExists(int id);
         Task UpdatePatient(PatientModel patientModel);
+        Task DeletePatient(int id);
     }
     public class PatientRepository(AppDbContext dbContext) : IPatientRepository
     {
@@ -24,6 +25,13 @@ namespace HealthCarePortalApp.BL.Repositories
             dbContext.Patients.Add(patientModel);
             await dbContext.SaveChangesAsync();
             return patientModel;
+        }
+
+        public async Task DeletePatient(int id)
+        {
+           var patient = dbContext.Patients.FirstOrDefault(n => n.ID == id);
+            dbContext.Patients.Remove(patient);
+            await dbContext.SaveChangesAsync();
         }
 
         public Task<PatientModel> GetPatient(int id)

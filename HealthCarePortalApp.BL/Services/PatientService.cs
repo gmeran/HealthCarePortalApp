@@ -18,6 +18,7 @@ namespace HealthCarePortalApp.BL.Services
         Task <PatientModel> GetPatient(int id);
         Task<bool> PatientModelExists(int id);
         Task UpdatePatient(PatientModel patientModel);
+        Task DeletePatient(int id);
     }
     public class PatientService(IPatientRepository patientRepository) : IPatientService
     {
@@ -25,6 +26,11 @@ namespace HealthCarePortalApp.BL.Services
         {
             var patient = await patientRepository.CreatePatient(patientModel);
             return patient;
+        }
+
+        public Task DeletePatient(int id)
+        {
+            return patientRepository.DeletePatient(id);
         }
 
         public Task<PatientModel> GetPatient(int id)

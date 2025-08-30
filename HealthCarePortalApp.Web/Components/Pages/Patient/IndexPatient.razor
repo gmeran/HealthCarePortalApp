@@ -1,4 +1,5 @@
 ﻿@page "/patient"
+
 <h3>IndexPatient</h3>
 
 @if (PatientModels == null)
@@ -37,10 +38,21 @@ else
                     <td>@patient.Email</td>
                     <td>
                         <a class=" btn btn-secondary" href="/patient/update/@patient.ID">Update</a>
-                        <button class="btn btn-danger">Delete</button>
+                        <button class="btn btn-danger" @onclick="()=> {DeleteID = patient.ID; Modal.Open();}">Delete</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+
+    <AppModal @ref="Modal">
+        <Title>Notification</Title>
+        <Body>
+            Do you sure want to delete this patient?
+        </Body>
+        <Footer>
+            <button type="button" class="btn btn-primary" style="width:80px" @onclick="HandleDelete">Yes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => Modal.Close()">Cancel</button>
+        </Footer>
+    </AppModal>
 }

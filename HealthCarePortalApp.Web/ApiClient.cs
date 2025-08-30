@@ -27,5 +27,10 @@ public class ApiClient(HttpClient httpClient)
         }
         return default;
     }
+
+    public Task<T> DeleteFromAsync<T>(string path)
+    {
+        return httpClient.DeleteFromJsonAsync<T>(path);
+    }
 }
 
