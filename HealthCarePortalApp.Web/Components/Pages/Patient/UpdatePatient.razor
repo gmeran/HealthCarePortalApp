@@ -1,0 +1,57 @@
+﻿@page "/patient/update/{ID:int}"
+<h3>UpdatePatient</h3>
+
+<EditForm OnValidSubmit="Submit" FormName="CreatePatient" Model="Model">
+    <DataAnnotationsValidator />
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>First Name</label>
+                <InputText class="form-control" @bind-Value="Model.FirstName" />
+                <ValidationMessage For="() => Model.FirstName" />
+            </div>
+            <div class="col-md-6">
+                <label>Last Name</label>
+                <InputText class="form-control" @bind-Value="Model.LastName" />
+                <ValidationMessage For="() => Model.LastName" />
+            </div>
+            <div class="col-md-6">
+                <label>Date of Birth</label>
+                <InputDate class="form-control" @bind-Value="Model.DOB" TValue="DateTime" />
+                <ValidationMessage For="() => Model.DOB" />
+            </div>
+            <div class="col-md-6">
+                <label>Address</label>
+                <InputText class="form-control" @bind-Value="Model.Address" />
+                <ValidationMessage For="() => Model.Address" />
+            </div>
+            <div class="col-md-6">
+                <label>City</label>
+                <InputText class="form-control" @bind-Value="Model.City" />
+                <ValidationMessage For="() => Model.City" />
+            </div>
+            <div class="col-md-6">
+                <label>State</label>
+                <InputText class="form-control" @bind-Value="Model.State" />
+                <ValidationMessage For="() => Model.State" />
+            </div>
+            <div class="col-md-6">
+                <label>Zip</label>
+                <InputText class="form-control" @bind-Value="Model.Zip" />
+                <ValidationMessage For="() => Model.Zip" />
+            </div>
+            <div class="col-md-6">
+                <label>Phone Number</label>
+                <InputText class="form-control" @bind-Value="Model.PhoneNumber" />
+                <ValidationMessage For="() => Model.PhoneNumber" />
+            </div>
+            <div class="col-md-6">
+                <label>Email</label>
+                <InputText class="form-control" @bind-Value="Model.Email" />
+                <ValidationMessage For="() => Model.Email" />
+            </div>
+        </div>
+        <button class="btn btn-secondary" type="submit">Save</button>
+    </div>
+</EditForm>
+

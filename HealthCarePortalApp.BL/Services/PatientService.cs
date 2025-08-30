@@ -15,7 +15,9 @@ namespace HealthCarePortalApp.BL.Services
     {
         Task<List<PatientModel>> GetPatients();
         Task<PatientModel> CreatePatient(PatientModel patientModel);
-
+        Task <PatientModel> GetPatient(int id);
+        Task<bool> PatientModelExists(int id);
+        Task UpdatePatient(PatientModel patientModel);
     }
     public class PatientService(IPatientRepository patientRepository) : IPatientService
     {
@@ -25,9 +27,24 @@ namespace HealthCarePortalApp.BL.Services
             return patient;
         }
 
+        public Task<PatientModel> GetPatient(int id)
+        {
+            return patientRepository.GetPatient(id);
+        }
+
         public Task<List<PatientModel>> GetPatients()
         {
             return patientRepository.GetPatients();
+        }
+
+        public Task<bool> PatientModelExists(int id)
+        {
+            return patientRepository.PatientModelExists(id);
+        }
+
+        public Task UpdatePatient(PatientModel patientModel)
+        {
+            return patientRepository.UpdatePatient(patientModel);
         }
     }
 }

@@ -13,6 +13,9 @@ namespace HealthCarePortalApp.BL.Repositories
     {
         Task<List<PatientModel>> GetPatients();
         Task<PatientModel> CreatePatient(PatientModel patientModel);
+        Task<PatientModel> GetPatient(int id);
+        Task<bool> PatientModelExists(int id);
+        Task UpdatePatient(PatientModel patientModel);
     }
     public class PatientRepository(AppDbContext dbContext) : IPatientRepository
     {
@@ -23,9 +26,25 @@ namespace HealthCarePortalApp.BL.Repositories
             return patientModel;
         }
 
+        public Task<PatientModel> GetPatient(int id)
+        {
+           return dbContext.Patients.FirstOrDefaultAsync(n => n.ID == id);
+        }
+
         public Task<List<PatientModel>> GetPatients()
         {
             return dbContext.Patients.ToListAsync();
+        }
+
+        public Task<bool> PatientModelExists(int id)
+        {
+            return dbContext.Patients.AnyAsync(n => n.ID == id);
+        }
+
+        public async Task UpdatePatient(PatientModel patientModel)
+        {
+            dbContext.Entry(patientModel).State = EntityState.Modified;
+            await dbContext.SaveChangesAsync();
         }
     }
 }
