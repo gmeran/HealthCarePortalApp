@@ -15,6 +15,7 @@ namespace HealthCarePortalApp.Database.Data
             Database.EnsureCreated();
         }
         public DbSet<PatientModel> Patients { get; set; }
+        public DbSet<MedicationModel> Medications { get; set; } 
         
     }
 }

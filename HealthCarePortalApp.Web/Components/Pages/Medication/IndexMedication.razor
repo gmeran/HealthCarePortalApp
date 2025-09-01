@@ -1,0 +1,30 @@
+﻿@page "/medication"
+
+<h3>IndexMedication</h3>
+
+@if (MedicationModels == null)
+{
+    <p>Loading ...</p>
+}
+else
+{
+    <a class=" btn btn-primary" href="/patient/create">Create</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var medication in MedicationModels)
+            {
+                <tr>
+                    <td>@medication.Name</td>
+                    <td>@medication.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}   
