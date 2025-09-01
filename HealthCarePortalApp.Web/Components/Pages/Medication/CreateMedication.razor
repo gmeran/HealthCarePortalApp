@@ -1,0 +1,25 @@
+﻿@page "/medication/create"
+<h3>CreateMedication</h3>
+@rendermode InteractiveServer
+
+<EditForm OnValidSubmit="Submit" FormName="CreatePatient" Model="Model">
+    <DataAnnotationsValidator />
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label>Name</label>
+                <InputText class="form-control" @bind-Value="Model.Name" />
+                <ValidationMessage For="() => Model.Name" />
+            </div>
+            <div class="col-md-6">
+                <label>Description</label>
+                <InputText class="form-control" @bind-Value="Model.Description" />
+                <ValidationMessage For="() => Model.Description" />
+            </div>
+        </div>
+        <button class="btn btn-secondary" type="submit">Save</button>
+    </div>
+</EditForm>
+
+
+
