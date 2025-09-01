@@ -10,10 +10,17 @@ namespace HealthCarePortalApp.BL.Services
 {
     public interface IMedicationService
     {
+        Task <MedicationModel>CreateMedication(MedicationModel medicationtModel);
         Task<List<MedicationModel>> GetMedications();
     }
     public class MedicationService(IMedicationRepository medicationRepository) : IMedicationService
     {
+        public async Task<MedicationModel> CreateMedication(MedicationModel medicationtModel)
+        {
+            var medication = await medicationRepository.CreateMedication(medicationtModel);
+            return medication;
+        }
+
         public Task<List<MedicationModel>> GetMedications()
         {
             return medicationRepository.GetMedications();
