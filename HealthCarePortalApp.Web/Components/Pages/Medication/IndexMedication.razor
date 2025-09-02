@@ -22,9 +22,23 @@ else
                 <tr>
                     <td>@medication.Name</td>
                     <td>@medication.Description</td>
+                    <td>
+                        
+                        <button class="btn btn-danger" @onclick="() => { DeleteID = medication.ID; Modal.Open(); }">Delete</button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+    <AppModal @ref="Modal">
+        <Title>Notification</Title>
+        <Body>
+            Do you sure want to delete this patient?
+        </Body>
+        <Footer>
+            <button type="button" class="btn btn-primary" style="width:80px" @onclick="HandleDelete">Yes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => Modal.Close()">Cancel</button>
+        </Footer>
+    </AppModal>
 
 }   

@@ -22,5 +22,15 @@ namespace HealthCarePortalApp.ApiService.Controllers
             await medicationService.CreateMedication(medicationtModel);
             return Ok(new BaseResponseModel { Success = true });
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteMedication(int id)
+        {
+            if (!await medicationService.MedicationModelExists(id))
+            {
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Not Found" });
+            }
+            await medicationService.DeleteMedication(id);
+            return Ok(new BaseResponseModel { Success = true });
+        }
     }
 }
