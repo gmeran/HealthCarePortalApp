@@ -1,5 +1,6 @@
 ﻿using HealthCarePortalApp.BL.Repositories;
 using HealthCarePortalApp.Model.Entities;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace HealthCarePortalApp.BL.Services
     {
         Task <MedicationModel>CreateMedication(MedicationModel medicationtModel);
         Task<List<MedicationModel>> GetMedications();
+        Task DeleteMedication(int id);
+        Task<bool> MedicationModelExists(int id);
     }
     public class MedicationService(IMedicationRepository medicationRepository) : IMedicationService
     {
@@ -21,9 +24,19 @@ namespace HealthCarePortalApp.BL.Services
             return medication;
         }
 
+        public Task DeleteMedication(int id)
+        {
+            return medicationRepository.DeleteMedication(id);
+        }
+
         public Task<List<MedicationModel>> GetMedications()
         {
             return medicationRepository.GetMedications();
+        }
+
+        public Task<bool> MedicationModelExists(int id)
+        {
+            return medicationRepository.MedicationModelExists(id);
         }
     }
 }
