@@ -1,0 +1,42 @@
+﻿@page "/provider"
+<h3>IndexProvider</h3>
+
+@if (ProviderModel == null)
+{
+    <p>Loading ...</p>
+}
+else
+{
+    <a class=" btn btn-primary" href="/patient/create">Create</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Specialization</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Zip</th>
+                <th>PhoneNumber</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var provider in ProviderModel)
+            {
+                <tr>
+                    <td>@provider.FirstName</td>
+                    <td>@provider.LastName</td>
+                    <td>@provider.Specialization</td>
+                    <td>@provider.Address</td>
+                    <td>@provider.City</td>
+                    <td>@provider.State</td>
+                    <td>@provider.Zip</td>
+                    <td>@provider.PhoneNumber</td>
+                    <td>@provider.Email</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

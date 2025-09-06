@@ -22,7 +22,10 @@ builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
 builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
 builder.Services.AddScoped<IMedicationService, MedicationService>();
-;
+
+builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
+builder.Services.AddScoped<IProviderService, ProviderService>();
+
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
