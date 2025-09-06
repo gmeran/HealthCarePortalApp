@@ -11,9 +11,16 @@ namespace HealthCarePortalApp.BL.Services
     public interface IProviderService
     {
         Task<List<ProviderModel>> GetProviders();
+        Task<ProviderModel> CreateProvider(ProviderModel providerModel);
     }
     public class ProviderService(IProviderRepository providerRepository) : IProviderService
     {
+        public async Task<ProviderModel> CreateProvider(ProviderModel providerModel)
+        {
+            var provider = await providerRepository.CreateProovider(providerModel);
+            return provider;
+        }
+
         public Task<List<ProviderModel>> GetProviders()
         {
             return providerRepository.GetProviders();
