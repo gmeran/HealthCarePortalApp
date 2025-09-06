@@ -1,7 +1,7 @@
-﻿@page "/patient/update/{ID:int}"
-<h3>UpdatePatient</h3>
+﻿@page "/provider/update/{ID:int}"
+<h3>UpdateProvider</h3>
 
-<EditForm OnValidSubmit="Submit" FormName="UpdatePatient" Model="Model">
+<EditForm OnValidSubmit="Submit" FormName="UpdateProvider" Model="Model">
     <DataAnnotationsValidator />
     <div class="container">
         <div class="row mb-3">
@@ -16,9 +16,9 @@
                 <ValidationMessage For="() => Model.LastName" />
             </div>
             <div class="col-md-6">
-                <label>Date of Birth</label>
-                <InputDate class="form-control" @bind-Value="Model.DOB" TValue="DateTime" />
-                <ValidationMessage For="() => Model.DOB" />
+                <label>Specializaiton</label>
+                <InputText class="form-control" @bind-Value="Model.Specialization" />
+                <ValidationMessage For="() => Model.Specialization" />
             </div>
             <div class="col-md-6">
                 <label>Address</label>
@@ -54,4 +54,5 @@
         <button class="btn btn-secondary" type="submit">Save</button>
     </div>
 </EditForm>
+
 

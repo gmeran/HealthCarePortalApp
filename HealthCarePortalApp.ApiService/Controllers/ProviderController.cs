@@ -22,5 +22,25 @@ namespace HealthCarePortalApp.ApiService.Controllers
             await providerService.CreateProvider(providerModel);
             return Ok(new BaseResponseModel { Success = true });
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProvider(int id, ProviderModel providerModel)
+        {
+            if (id != providerModel.ID || !await providerService.ProviderModelExist(id))
+            {
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Bad Request" });
+            }
+            await providerService.UpdateProvider(providerModel);
+            return Ok(new BaseResponseModel { Success = true });
+        }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<BaseResponseModel>> GetProvider(int id)
+        {
+            var patientModel = await providerService.GetProvider(id);
+            if (patientModel == null)
+            {
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Not Found" });
+            }
+            return Ok(new BaseResponseModel { Success = true, Data = patientModel });
+        }
     }
 }
