@@ -13,6 +13,9 @@ namespace HealthCarePortalApp.BL.Repositories
     {
         Task<ProviderModel> CreateProovider(ProviderModel providerModel);
         Task<List<ProviderModel>> GetProviders();
+        Task<ProviderModel> GetProvider(int id);
+        Task UpdateProvider(ProviderModel providerModel);
+        Task<bool> ProviderModelExists(int id);
     }
     public class ProviderRepository(AppDbContext dbContext): IProviderRepository
     {
@@ -23,9 +26,25 @@ namespace HealthCarePortalApp.BL.Repositories
             return providerModel;
         }
 
+        public Task<ProviderModel> GetProvider(int id)
+        {
+            return dbContext.Providers.FirstOrDefaultAsync(n => n.ID == id);
+        }
+
         public Task<List<ProviderModel>> GetProviders()
         {
             return dbContext.Providers.ToListAsync();
+        }
+
+        public Task<bool> ProviderModelExists(int id)
+        {
+            return dbContext.Providers.AnyAsync(n => n.ID == id);
+        }
+
+        public async Task UpdateProvider(ProviderModel providerModel)
+        {
+            dbContext.Entry(providerModel).State = EntityState.Modified;
+            await dbContext.SaveChangesAsync();
         }
     }
 }

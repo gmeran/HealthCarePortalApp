@@ -12,6 +12,9 @@ namespace HealthCarePortalApp.BL.Services
     {
         Task<List<ProviderModel>> GetProviders();
         Task<ProviderModel> CreateProvider(ProviderModel providerModel);
+        Task<ProviderModel> GetProvider(int id);
+        Task UpdateProvider(ProviderModel providerModel);
+        Task<bool> ProviderModelExist(int id);
     }
     public class ProviderService(IProviderRepository providerRepository) : IProviderService
     {
@@ -21,9 +24,24 @@ namespace HealthCarePortalApp.BL.Services
             return provider;
         }
 
+        public Task<ProviderModel> GetProvider(int id)
+        {
+            return providerRepository.GetProvider(id);
+        }
+
         public Task<List<ProviderModel>> GetProviders()
         {
             return providerRepository.GetProviders();
+        }
+
+        public Task<bool> ProviderModelExist(int id)
+        {
+            return providerRepository.ProviderModelExists(id);
+        }
+
+        public Task UpdateProvider(ProviderModel providerModel)
+        {
+            return providerRepository.UpdateProvider(providerModel);
         }
     }
 }

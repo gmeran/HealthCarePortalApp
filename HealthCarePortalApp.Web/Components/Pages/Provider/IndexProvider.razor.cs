@@ -12,6 +12,7 @@ namespace HealthCarePortalApp.Web.Components.Pages.Provider
         public AppModal Modal { get; set; }
         [Inject]
         public ApiClient ApiClient { get; set; }
+        public int DeleteID { get; set; }
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
