@@ -15,6 +15,7 @@ namespace HealthCarePortalApp.BL.Services
         Task<ProviderModel> GetProvider(int id);
         Task UpdateProvider(ProviderModel providerModel);
         Task<bool> ProviderModelExist(int id);
+        public Task DeleteProvider(int id);
     }
     public class ProviderService(IProviderRepository providerRepository) : IProviderService
     {
@@ -22,6 +23,11 @@ namespace HealthCarePortalApp.BL.Services
         {
             var provider = await providerRepository.CreateProovider(providerModel);
             return provider;
+        }
+
+        public Task DeleteProvider(int id)
+        {
+            return providerRepository.DeleteProvider(id);
         }
 
         public Task<ProviderModel> GetProvider(int id)

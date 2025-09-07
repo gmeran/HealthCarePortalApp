@@ -16,6 +16,7 @@ namespace HealthCarePortalApp.BL.Repositories
         Task<ProviderModel> GetProvider(int id);
         Task UpdateProvider(ProviderModel providerModel);
         Task<bool> ProviderModelExists(int id);
+        Task DeleteProvider(int id);
     }
     public class ProviderRepository(AppDbContext dbContext): IProviderRepository
     {
@@ -24,6 +25,13 @@ namespace HealthCarePortalApp.BL.Repositories
             dbContext.Providers.Add(providerModel);
             await dbContext.SaveChangesAsync();
             return providerModel;
+        }
+
+        public async Task DeleteProvider(int id)
+        {
+            var provider = dbContext.Providers.FirstOrDefault(n => n.ID == id);
+            dbContext.Providers.Remove(provider);
+            await dbContext.SaveChangesAsync();
         }
 
         public Task<ProviderModel> GetProvider(int id)
