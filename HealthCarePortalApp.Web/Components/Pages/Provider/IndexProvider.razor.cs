@@ -1,4 +1,5 @@
-﻿using HealthCarePortalApp.Model.Entities;
+﻿using Blazored.Toast.Services;
+using HealthCarePortalApp.Model.Entities;
 using HealthCarePortalApp.Model.Models;
 using HealthCarePortalApp.Web.Components.BaseComponents;
 using Microsoft.AspNetCore.Components;
@@ -13,6 +14,8 @@ namespace HealthCarePortalApp.Web.Components.Pages.Provider
         [Inject]
         public ApiClient ApiClient { get; set; }
         public int DeleteID { get; set; }
+        [Inject]
+        private IToastService ToastService { get; set; }
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
@@ -26,6 +29,16 @@ namespace HealthCarePortalApp.Web.Components.Pages.Provider
                 ProviderModel = JsonConvert.DeserializeObject<List<ProviderModel>>(res.Data.ToString());
             }
             await base.OnInitializedAsync();
+        }
+        protected async Task HandleDelete()
+        {
+            var res = await ApiClient.DeleteFromAsync<BaseResponseModel>($"/api/Provider/{DeleteID}");
+            if (res != null && res.Success)
+            {
+                ToastService.ShowSuccess("Delete provider successfully");
+                await LoadPatient();
+                Modal.Close();
+            }
         }
     }
 }

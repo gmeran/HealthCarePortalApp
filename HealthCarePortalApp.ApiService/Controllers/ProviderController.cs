@@ -42,5 +42,15 @@ namespace HealthCarePortalApp.ApiService.Controllers
             }
             return Ok(new BaseResponseModel { Success = true, Data = patientModel });
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletePatient(int id)
+        {
+            if (!await providerService.ProviderModelExist(id))
+            {
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Not Found" });
+            }
+            await providerService.DeleteProvider(id);
+            return Ok(new BaseResponseModel { Success = true });
+        }
     }
 }
