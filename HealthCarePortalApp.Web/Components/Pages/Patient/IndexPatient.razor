@@ -37,6 +37,10 @@ else
                     <td>@patient.PhoneNumber</td>
                     <td>@patient.Email</td>
                     <td>
+                        <div @onmouseleave="HideMedication">
+                            <a class=" btn btn-secondary"  @onmouseover="ShowMedication" href ="">View Prescribed Medications</a>
+                        </div>
+                        
                         <a class=" btn btn-secondary" href="/patient/update/@patient.ID">Update</a>
                         <button class="btn btn-danger" @onclick="()=> {DeleteID = patient.ID; Modal.Open();}">Delete</button>
                     </td>
@@ -55,4 +59,18 @@ else
             <button type="button" class="btn btn-secondary" data-dismiss="modal" @onclick="() => Modal.Close()">Cancel</button>
         </Footer>
     </AppModal>
+
+    @code{
+    private bool IsVisible = false;
+
+    private void ShowMedication()
+    {
+        IsVisible = true;
+    }
+
+    private void HideMedication()
+    {
+        IsVisible = false;
+    }
+  }
 }

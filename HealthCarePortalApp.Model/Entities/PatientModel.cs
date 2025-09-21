@@ -20,6 +20,7 @@ namespace HealthCarePortalApp.Model.Entities
         public string Zip { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
+        public bool hasMedication { get; set; }
 
     }
 }

@@ -12,6 +12,7 @@ namespace HealthCarePortalApp.BL.Services
     public interface IMedicationService
     {
         Task <MedicationModel>CreateMedication(MedicationModel medicationtModel);
+        Task<PatientMedicationModel> CreatePatientMedication(PatientMedicationModel patientMedicationtModel);
         Task<List<MedicationModel>> GetMedications();
         Task DeleteMedication(int id);
         Task<bool> MedicationModelExists(int id);
@@ -22,6 +23,12 @@ namespace HealthCarePortalApp.BL.Services
         {
             var medication = await medicationRepository.CreateMedication(medicationtModel);
             return medication;
+        }
+
+        public async Task<PatientMedicationModel> CreatePatientMedication(PatientMedicationModel patientMedicationtModel)
+        {
+            var patientMedication = await medicationRepository.CreateMedicationAssignment(patientMedicationtModel);
+            return patientMedication;
         }
 
         public Task DeleteMedication(int id)

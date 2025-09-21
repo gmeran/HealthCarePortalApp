@@ -1,0 +1,51 @@
+﻿<h3>AssignMedicationToPatient</h3>
+
+@page "/medication/assign/{MedicationID:int}"
+
+
+
+@if (PatientModels == null)
+{
+    <p>Loading ...</p>
+}
+else
+{
+    
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>DOB</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Zip</th>
+                    <th>PhoneNumber</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var patient in PatientModels)
+                {
+                    <tr>
+                        <input type="checkbox" @bind="@patient.hasMedication" />
+                        <td>@patient.FirstName</td>
+                        <td>@patient.LastName</td>
+                        <td>@patient.DOB</td>
+                        <td>@patient.Address</td>
+                        <td>@patient.City</td>
+                        <td>@patient.State</td>
+                        <td>@patient.Zip</td>
+                        <td>@patient.PhoneNumber</td>
+                        <td>@patient.Email</td>
+                    </tr>
+                }
+            </tbody>
+        <button class="btn btn-secondary" @onclick="SubmitSelectedPatient">Submit</button>
+        </table>
+
+    
+}
+
