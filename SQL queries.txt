@@ -1,0 +1,14 @@
+Select p.FirstName, p.LastName, m.Name as MedicationName
+FROM PatientMedication n
+INNER JOIN 
+Patients p on p.ID = n.PatientID
+INNER JOIN 
+Medications m on m.ID = n.MedicationID;
+
+
+Create Table PatientMedicaiton
+(PatientID int,
+MedicaitonID int, 
+PRIMARY KEY(PatientID,MedicationID),
+FOREIGN KEY(PatientID) REFERENCES Patients(ID),
+FOREIGN KEY(MedicationID) REFERENCES Medications(ID));

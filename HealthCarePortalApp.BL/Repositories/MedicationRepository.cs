@@ -12,6 +12,7 @@ namespace HealthCarePortalApp.BL.Repositories
     public interface IMedicationRepository
     {
         Task<MedicationModel> CreateMedication(MedicationModel medicationModel);
+        Task<PatientMedicationModel> CreateMedicationAssignment(PatientMedicationModel patientMedicationModel);
         Task<List<MedicationModel>> GetMedications();
         Task DeleteMedication(int id);
         Task<bool> MedicationModelExists(int id);
@@ -24,6 +25,13 @@ namespace HealthCarePortalApp.BL.Repositories
             await dbContext.SaveChangesAsync();
             return medicationModel;
 
+        }
+
+        public async Task<PatientMedicationModel> CreateMedicationAssignment(PatientMedicationModel patientMedicationModel)
+        {
+            dbContext.PatientMedications.Add(patientMedicationModel);
+            await dbContext.SaveChangesAsync();
+            return patientMedicationModel;
         }
 
         public async Task DeleteMedication(int id)

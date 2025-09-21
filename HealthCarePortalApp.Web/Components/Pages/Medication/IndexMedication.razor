@@ -23,7 +23,7 @@ else
                     <td>@medication.Name</td>
                     <td>@medication.Description</td>
                     <td>
-                        
+                        <a class=" btn btn-secondary" href="/medication/assign/@medication.ID">Assign To Patient</a>
                         <button class="btn btn-danger" @onclick="() => { DeleteID = medication.ID; Modal.Open(); }">Delete</button>
                     </td>
                 </tr>

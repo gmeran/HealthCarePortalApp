@@ -17,6 +17,7 @@ namespace HealthCarePortalApp.Database.Data
         public DbSet<PatientModel> Patients { get; set; }
         public DbSet<MedicationModel> Medications { get; set; } 
         public DbSet<ProviderModel> Providers { get; set; }
+        public DbSet<PatientMedicationModel> PatientMedications { get; set; }
         
     }
 }
