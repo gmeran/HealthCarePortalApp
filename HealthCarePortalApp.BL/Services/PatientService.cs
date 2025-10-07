@@ -14,43 +14,39 @@ namespace HealthCarePortalApp.BL.Services
     public interface IPatientService
     {
         Task<List<PatientModel>> GetPatients();
+        Task<List<PatientMedicationInfoModel>> GetPatientMedications(int id);
         Task<PatientModel> CreatePatient(PatientModel patientModel);
         Task <PatientModel> GetPatient(int id);
         Task<bool> PatientModelExists(int id);
         Task UpdatePatient(PatientModel patientModel);
         Task DeletePatient(int id);
+
+           
     }
-    public class PatientService(IPatientRepository patientRepository) : IPatientService
+    public class PatientService : IPatientService
     {
-        public async Task<PatientModel> CreatePatient(PatientModel patientModel)
+
+        private readonly IPatientRepository _patientRepository;
+
+        public PatientService(IPatientRepository patientRepository)
         {
-            var patient = await patientRepository.CreatePatient(patientModel);
-            return patient;
+            _patientRepository = patientRepository;
         }
 
-        public Task DeletePatient(int id)
-        {
-            return patientRepository.DeletePatient(id);
-        }
+        public Task<List<PatientModel>> GetPatients() => _patientRepository.GetPatients();
 
-        public Task<PatientModel> GetPatient(int id)
-        {
-            return patientRepository.GetPatient(id);
-        }
+        public Task<PatientModel> GetPatient(int id) => _patientRepository.GetPatient(id);
 
-        public Task<List<PatientModel>> GetPatients()
-        {
-            return patientRepository.GetPatients();
-        }
+        public Task<PatientModel> CreatePatient(PatientModel patientModel) => _patientRepository.CreatePatient(patientModel);
 
-        public Task<bool> PatientModelExists(int id)
-        {
-            return patientRepository.PatientModelExists(id);
-        }
+        public Task UpdatePatient(PatientModel patientModel) => _patientRepository.UpdatePatient(patientModel);
 
-        public Task UpdatePatient(PatientModel patientModel)
-        {
-            return patientRepository.UpdatePatient(patientModel);
-        }
+        public Task DeletePatient(int id) => _patientRepository.DeletePatient(id);
+
+        public Task<bool> PatientModelExists(int id) => _patientRepository.PatientModelExists(id);
+
+        public Task<List<PatientMedicationInfoModel>> GetPatientMedications(int id) =>
+            _patientRepository.GetPatientMedicationInfo(id);
     }
 }
+

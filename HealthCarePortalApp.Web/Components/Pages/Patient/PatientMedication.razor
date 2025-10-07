@@ -1,0 +1,32 @@
+﻿@page "/patient/patientmedication/{PatientID:int}/{FirstName}/{LastName}"
+
+<h3>@FirstName @LastName Medication List</h3>
+
+@if (medications == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if (!medications.Any())
+{
+    <p>No medications found for this patient.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Medication</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in medications)
+            {
+                <tr>
+                    <td>@item.MedicationName</td>
+                    <td>@item.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

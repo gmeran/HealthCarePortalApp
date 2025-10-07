@@ -1,6 +1,10 @@
 using Blazored.Toast;
 using HealthCarePortalApp.Web;
 using HealthCarePortalApp.Web.Components;
+using HealthCarePortalApp.BL.Services;
+using HealthCarePortalApp.BL.Repositories;
+using HealthCarePortalApp.Database.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +24,14 @@ builder.Services.AddHttpClient<ApiClient>(client =>
         // Learn more about service discovery scheme resolution at https://aka.ms/dotnet/sdschemes.
         client.BaseAddress = new("https+http://localhost:7438");
     });
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+
+builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 
 var app = builder.Build();
 
