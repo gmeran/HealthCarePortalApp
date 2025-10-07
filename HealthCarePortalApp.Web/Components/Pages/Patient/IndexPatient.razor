@@ -1,5 +1,7 @@
 ﻿@page "/patient"
 
+@rendermode InteractiveServer
+
 <h3>IndexPatient</h3>
 
 @if (PatientModels == null)
@@ -37,12 +39,9 @@ else
                     <td>@patient.PhoneNumber</td>
                     <td>@patient.Email</td>
                     <td>
-                        <div @onmouseleave="HideMedication">
-                            <a class=" btn btn-secondary"  @onmouseover="ShowMedication" href ="">View Prescribed Medications</a>
-                        </div>
-                        
-                        <a class=" btn btn-secondary" href="/patient/update/@patient.ID">Update</a>
-                        <button class="btn btn-danger" @onclick="()=> {DeleteID = patient.ID; Modal.Open();}">Delete</button>
+                        <a class=" btn btn-secondary" href="/patient/patientmedication/@patient.ID/@patient.FirstName/@patient.LastName">Prescribed Medications</a>
+                    <a class=" btn btn-secondary" href="/patient/update/@patient.ID">Update</a>
+                    <button class="btn btn-danger" @onclick="() => { DeleteID = patient.ID; Modal.Open(); }">Delete</button>
                     </td>
                 </tr>
             }
@@ -60,17 +59,4 @@ else
         </Footer>
     </AppModal>
 
-    @code{
-    private bool IsVisible = false;
-
-    private void ShowMedication()
-    {
-        IsVisible = true;
-    }
-
-    private void HideMedication()
-    {
-        IsVisible = false;
-    }
-  }
 }

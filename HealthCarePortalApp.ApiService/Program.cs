@@ -2,33 +2,36 @@ using HealthCarePortalApp.BL.Repositories;
 using HealthCarePortalApp.BL.Services;
 using HealthCarePortalApp.Database.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add service defaults & Aspire client integrations.
-builder.AddServiceDefaults()
-    ;
+builder.AddServiceDefaults();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
-
 builder.Services.AddScoped<IMedicationRepository, MedicationRepository>();
-builder.Services.AddScoped<IMedicationService, MedicationService>();
-
 builder.Services.AddScoped<IProviderRepository, ProviderRepository>();
+
+
+builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<IMedicationService, MedicationService>();
 builder.Services.AddScoped<IProviderService, ProviderService>();
 
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
+
+
 
 var app = builder.Build();
 
