@@ -12,6 +12,7 @@ namespace HealthCarePortalApp.BL.Services
     {
         Task<List<ProviderModel>> GetProviders();
         Task<ProviderModel> CreateProvider(ProviderModel providerModel);
+        Task<PatientProviderModel> CreatePatientProvider(PatientProviderModel patientProviderModel);
         Task<ProviderModel> GetProvider(int id);
         Task UpdateProvider(ProviderModel providerModel);
         Task<bool> ProviderModelExist(int id);
@@ -19,6 +20,12 @@ namespace HealthCarePortalApp.BL.Services
     }
     public class ProviderService(IProviderRepository providerRepository) : IProviderService
     {
+        public async Task<PatientProviderModel> CreatePatientProvider(PatientProviderModel patientProviderModel)
+        {
+            var patientProvider = await providerRepository.CreatePatientProvider(patientProviderModel);
+            return patientProvider;
+        }
+
         public async Task<ProviderModel> CreateProvider(ProviderModel providerModel)
         {
             var provider = await providerRepository.CreateProovider(providerModel);

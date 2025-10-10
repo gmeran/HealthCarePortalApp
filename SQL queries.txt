@@ -1,3 +1,4 @@
+,
 Select p.FirstName, p.LastName, m.Name as MedicationName
 FROM PatientMedication n
 INNER JOIN 
@@ -12,3 +13,13 @@ MedicaitonID int,
 PRIMARY KEY(PatientID,MedicationID),
 FOREIGN KEY(PatientID) REFERENCES Patients(ID),
 FOREIGN KEY(MedicationID) REFERENCES Medications(ID));
+
+
+
+Select p.FirstName, p.LastName, n.FirstName as ProviderFirstName, n.LastName as ProviderLastName, n.Specialization
+From PatientProviders a
+INNER JOIN
+Patients p on p.ID = a.PatientID
+INNER JOIN
+Providers n on n.ID = a.ProviderID;
+

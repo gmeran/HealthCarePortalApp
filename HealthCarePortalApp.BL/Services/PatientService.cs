@@ -15,6 +15,7 @@ namespace HealthCarePortalApp.BL.Services
     {
         Task<List<PatientModel>> GetPatients();
         Task<List<PatientMedicationInfoModel>> GetPatientMedications(int id);
+        Task<List<PatientProviderInfoModel>> GetPatientProviders(int id);
         Task<PatientModel> CreatePatient(PatientModel patientModel);
         Task <PatientModel> GetPatient(int id);
         Task<bool> PatientModelExists(int id);
@@ -47,6 +48,9 @@ namespace HealthCarePortalApp.BL.Services
 
         public Task<List<PatientMedicationInfoModel>> GetPatientMedications(int id) =>
             _patientRepository.GetPatientMedicationInfo(id);
+
+        public Task<List<PatientProviderInfoModel>> GetPatientProviders(int id) => _patientRepository.GetPatientProviderInfo(id);
+      
     }
 }
 
