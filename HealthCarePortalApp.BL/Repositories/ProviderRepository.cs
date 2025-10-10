@@ -12,6 +12,7 @@ namespace HealthCarePortalApp.BL.Repositories
     public interface IProviderRepository
     {
         Task<ProviderModel> CreateProovider(ProviderModel providerModel);
+        Task<PatientProviderModel> CreatePatientProvider(PatientProviderModel providerModel);
         Task<List<ProviderModel>> GetProviders();
         Task<ProviderModel> GetProvider(int id);
         Task UpdateProvider(ProviderModel providerModel);
@@ -20,6 +21,13 @@ namespace HealthCarePortalApp.BL.Repositories
     }
     public class ProviderRepository(AppDbContext dbContext): IProviderRepository
     {
+        public async Task<PatientProviderModel> CreatePatientProvider(PatientProviderModel patientProviderModel)
+        {
+            dbContext.PatientProviders.Add(patientProviderModel);
+            await dbContext.SaveChangesAsync();
+            return patientProviderModel;
+        }
+
         public async Task <ProviderModel> CreateProovider(ProviderModel providerModel)
         {
             dbContext.Providers.Add(providerModel);

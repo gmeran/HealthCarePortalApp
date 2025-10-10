@@ -36,6 +36,7 @@ else
                     <td>@provider.PhoneNumber</td>
                     <td>@provider.Email</td>
                     <td>
+                        <a class=" btn btn-secondary" href="/provider/assign/@provider.ID">Assign To Patient</a>
                         <a class=" btn btn-secondary" href="/provider/update/@provider.ID">Update</a>
                         <button class="btn btn-danger" @onclick="() => { DeleteID = provider.ID; Modal.Open(); }">Delete</button>
                     </td>

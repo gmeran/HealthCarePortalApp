@@ -15,6 +15,7 @@ namespace HealthCarePortalApp.BL.Repositories
         Task<PatientModel> CreatePatient(PatientModel patientModel);
         Task<PatientModel> GetPatient(int id);
         Task<List<PatientMedicationInfoModel>> GetPatientMedicationInfo(int id);
+        Task<List<PatientProviderInfoModel>> GetPatientProviderInfo(int id);
         Task<bool> PatientModelExists(int id);
         Task UpdatePatient(PatientModel patientModel);
         Task DeletePatient(int id);
@@ -81,5 +82,20 @@ namespace HealthCarePortalApp.BL.Repositories
             ).ToListAsync();
         }
 
+        public async Task<List<PatientProviderInfoModel>> GetPatientProviderInfo(int id)
+        {
+            return await (
+                 from n in _dbContext.PatientProviders
+                 join p in _dbContext.Patients on n.PatientID equals p.ID
+                 join m in _dbContext.Providers on n.ProviderID equals m.ID
+                 where p.ID == id
+                 select new PatientProviderInfoModel
+                 {
+                     FirstName = m.FirstName,
+                     LastName = m.LastName,
+                     Specialization = m.Specialization,
+                 }
+               ).ToListAsync();
+        }
     }
 }

@@ -1,18 +1,13 @@
 ﻿using Blazored.Toast.Services;
 using HealthCarePortalApp.Model.Entities;
 using HealthCarePortalApp.Model.Models;
-using HealthCarePortalApp.Web.Components.Pages.Patient;
 using Microsoft.AspNetCore.Components;
 using Newtonsoft.Json;
-using System.Reflection;
 
-namespace HealthCarePortalApp.Web.Components.Pages.Medication
+namespace HealthCarePortalApp.Web.Components.Pages.Provider
 {
-   
-
-    public partial class AssignMedicationToPatient
+    public partial class AssignProviderToPatient
     {
-
         [Inject]
         public ApiClient ApiClient { get; set; }
         [Inject]
@@ -20,13 +15,13 @@ namespace HealthCarePortalApp.Web.Components.Pages.Medication
         [Inject]
         private NavigationManager NavigationManager { get; set; }
         [Parameter]
-        public int MedicationID {  get; set; }
+        public int ProviderId { get; set; }
         public List<PatientModel> PatientModels { get; set; }
-        public  MedicationModel MedicationModel { get; set; }
-        public PatientMedicationModel Model { get; set; } = new();
+       
+        public PatientProviderModel Model { get; set; } = new();
         public PatientModel PatientModel { get; set; }
-        private bool hasMedication { get; set; }
-        public int PatientID {  get; set; }
+        private bool hasProvider { get; set; }
+        public int PatientID { get; set; }
         public ChangeEventArgs Args { get; set; }
         protected override async Task OnInitializedAsync()
         {
@@ -46,17 +41,17 @@ namespace HealthCarePortalApp.Web.Components.Pages.Medication
         public async Task SubmitSelectedPatient()
 
         {
-            var selectedPatientIds = PatientModels.Where(p => p.hasMedication)
+            var selectedPatientIds = PatientModels.Where(p => p.hasProvider)
                 .Select(p => p.ID).ToList();
 
-            if (hasMedication == false)
+            if (hasProvider == false)
             {
-                Model.PatientID =  selectedPatientIds.First() ;
-                Model.MedicationID = MedicationID;
-                var res = await ApiClient.PostAsync<BaseResponseModel, PatientMedicationModel>($"/api/Medication/patientMedication", Model);
-                if(res != null && res.Success) 
+                Model.PatientID = selectedPatientIds.First();
+                Model.ProviderID = ProviderId;
+                var res = await ApiClient.PostAsync<BaseResponseModel, PatientProviderModel>($"/api/Provider/patientProvider", Model);
+                if (res != null && res.Success)
                 {
-                    ToastService.ShowSuccess("Successfully Assigned Medication to Patient");
+                    ToastService.ShowSuccess("Successfully Assigned Provider to Patient");
                     NavigationManager.NavigateTo("/patient");
                 }
             }
@@ -64,3 +59,4 @@ namespace HealthCarePortalApp.Web.Components.Pages.Medication
         }
     }
 }
+

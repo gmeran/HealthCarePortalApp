@@ -8,7 +8,7 @@ namespace HealthCarePortalApp.ApiService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProviderController(IProviderService providerService) : ControllerBase
+    public class ProviderController(IProviderService providerService, IPatientService patientService) : ControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<BaseResponseModel>> GetRpoviders()
@@ -50,6 +50,20 @@ namespace HealthCarePortalApp.ApiService.Controllers
                 return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Not Found" });
             }
             await providerService.DeleteProvider(id);
+            return Ok(new BaseResponseModel { Success = true });
+        }
+        [HttpPost("patientProvider")]
+        public async Task<ActionResult<PatientProviderModel>> CreatePaitentProvider(PatientProviderModel patientProviderModel)
+        {
+            if (!await providerService.ProviderModelExist(patientProviderModel.ProviderID))
+            {
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Medication Not Found" });
+            }
+            if (!await patientService.PatientModelExists(patientProviderModel.PatientID))
+            {
+                return Ok(new BaseResponseModel { Success = false, ErrorMessage = "Patient Not Found" });
+            }
+            await providerService.CreatePatientProvider(patientProviderModel);
             return Ok(new BaseResponseModel { Success = true });
         }
     }

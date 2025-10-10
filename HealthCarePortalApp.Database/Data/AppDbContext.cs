@@ -18,6 +18,7 @@ namespace HealthCarePortalApp.Database.Data
         public DbSet<MedicationModel> Medications { get; set; } 
         public DbSet<ProviderModel> Providers { get; set; }
         public DbSet<PatientMedicationModel> PatientMedications { get; set; }
+        public DbSet<PatientProviderModel> PatientProviders { get; set; }
         //public DbSet<PatientMedicationInfoModel> PatientMedicationsInfo { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
